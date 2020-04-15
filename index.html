@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0
+        }
+        #small{
+            width: 480px;
+            height: 270px;
+        }
+        #big{
+            width: 960px;
+            height: 540px;
+            position: absolute;
+        }
+        #box{
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            border:1px solid black
+        }
+        #small_box{
+            width: 480px;
+            position: relative;
+        }
+        #mark{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100px;
+            height:100px;
+            background: rgba(255,255,255,0.2);
+        }
+        #small_box:hover{
+            cursor: crosshair;
+        }
+    </style>
+</head>
+<body>
+    <div id="small_box">
+        <img src="images/a.jpg" alt="" id="small">
+        <div id="mark"></div>
+    </div>
+    <div id="box">
+        <img id="big" src="images/a.jpg" alt="">
+    </div>
+</body>
+<script>
+    small_box.onmousemove=function(e){
+        // 滚动高度
+        var st=document.body.scrollTop||document.documentElement.scrollTop;
+        var y=st+e.clientY-this.offsetTop;
+        var x=e.clientX-this.offsetLeft;
+
+        // 边缘阀值
+        var level=100*1/2;
+
+        // 限制边缘位置
+        if(x<level){
+            x=level;
+        }
+        if(x>480-level){
+            x=480-level
+        }
+        if(y<level){
+            y=level;
+        }
+        if(y>270-level){
+            y=270-level
+        }
+
+
+        // +100指定点移动到容器中央
+        big.style.left=-x*2+100+"px";
+        big.style.top=-y*2+100+"px"
+
+        // 设置mark位置
+        mark.style.left=x-50+"px";
+        mark.style.top=y-50+"px"
+        
+    }
+</script>
+</html>
